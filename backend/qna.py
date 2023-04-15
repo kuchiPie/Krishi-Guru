@@ -104,7 +104,7 @@ def res(query:str, messages: list, soil='black', crop='rice', lat=26.2006, lon=9
         #     model="gpt-3.5-turbo",
         #     messages= messages
         # )
-        print(query)
+        # print(query)
         return ask(query = query, messages = [])
     
     except Exception as e:

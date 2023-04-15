@@ -37,5 +37,5 @@ def forecast_api(lat:float, lon:float, day:int):
 
 @app.get("/query/{query}")
 def query_api(query):
-    print(query)
+    # print(query)
     return res(query, [])
