@@ -4,6 +4,7 @@ from fastapi import FastAPI
 from pydantic import BaseModel
 from weather_api import realtime
 from weather_api import forecast
+from qna import res
 
 app = FastAPI()
 
@@ -33,3 +34,8 @@ def real_item(lat: float, lon: float):
 @app.get("/forecast/{lat}/{lon}/{day}")
 def forecast_api(lat:float, lon:float, day:int):
     return forecast(lat, lon, day)
+
+@app.get("/query/{query}")
+def query_api(query):
+    print(query)
+    return res(query, [])
