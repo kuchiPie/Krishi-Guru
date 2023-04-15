@@ -9,6 +9,8 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:farmer_app/screens/Auth/auth_screen.dart';
 import 'package:intl/intl.dart';
 import './widgets/button.dart';
+import 'package:location/location.dart';
+import '../../models/weather.dart' as W;
 
 // @dart=2.9
 class HomeScreen extends StatefulWidget {
@@ -19,7 +21,7 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   bool _loading = false;
   String? userName = FirebaseAuth.instance.currentUser?.displayName;
-  // String userName = u;
+  String res = "err";
 
   void yourFunction(BuildContext context) async {
     setState(() {
@@ -28,19 +30,25 @@ class _HomeScreenState extends State<HomeScreen> {
     final uid = FirebaseAuth.instance.currentUser!.uid;
     final name = FirebaseAuth.instance.currentUser!.displayName;
     final email = FirebaseAuth.instance.currentUser!.email;
+    LocationData locData;
     try {
       bool _flag = false;
       final doc = await FirebaseFirestore.instance
           .collection('users')
-          .where('uid', isEqualTo: uid).get();
+          .where('uid', isEqualTo: uid)
+          .get();
 
       print(doc.docs.length);
-      if (doc.docs.length==0) {
+      if (doc.docs.length == 0) {
         await FirebaseFirestore.instance
             .doc('users/' + uid)
             .set({'uid': uid, 'name': name, 'email': email});
       }
 
+      locData = await Location().getLocation();
+      res = await W.getWeatherData(
+          locData.latitude.toString(), locData.longitude.toString());
+      print(res);
       setState(() {
         _loading = false;
       });
@@ -117,7 +125,32 @@ class _HomeScreenState extends State<HomeScreen> {
                                 ),
                               ),
                             ),
-                            Container(),
+                            Container(
+                              height: 600.h,
+                              margin: EdgeInsets.symmetric(
+                                horizontal: 200.w,
+                                vertical: 400.h,
+                              ),
+                              decoration: BoxDecoration(
+                                color: Color.fromARGB(255, 106, 177, 224),
+                                borderRadius: BorderRadius.circular(30.r),
+                              ),
+                              child: Padding(
+                                padding: EdgeInsets.symmetric(
+                                    horizontal: 50.w, vertical: 50.h),
+                                child: Center(
+                                  child: Text(
+                                    res == 'err'
+                                        ? "Something went wrong"
+                                        : "Temp : ${res} C",
+                                    style: TextStyle(
+                                        color: Colors.black,
+                                        fontSize: 80.sp,
+                                        fontWeight: FontWeight.w700),
+                                  ),
+                                ),
+                              ),
+                            ),
                             Container(
                               child: Row(
                                 mainAxisAlignment:
