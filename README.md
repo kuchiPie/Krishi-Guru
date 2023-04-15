@@ -15,8 +15,11 @@ In summary, creating an AI-powered mobile application for Indian farmers can pro
 
 # TECH STACK
 -> Mobile Application : Flutter, Firebase, Firestore, Google Auth
+
 -> AI Algorithms: GPT-3.5-TURBO, text-da-vinci-ada-003, OpenAI APIs
+
 -> APIs: Fast API (Python)
+
 -> Data Collection References (PARSER) : farmer.gov.in, data.gov.in, wikipedia
 
 
