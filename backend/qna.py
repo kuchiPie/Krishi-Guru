@@ -6,6 +6,7 @@ import ast  # for converting embeddings saved as strings back to arrays
 import pandas as pd  # for storing text and embeddings data
 import tiktoken  # for counting tokens
 from scipy import spatial  #
+from map import get_article
 # models
 EMBEDDING_MODEL = "text-embedding-ada-002"
 GPT_MODEL = "gpt-3.5-turbo"
@@ -14,7 +15,7 @@ embeddings_path = "embddings.csv"
 df = pd.read_csv(embeddings_path)
 df['embedding'] = df['embedding'].apply(ast.literal_eval)
 
-openai.api_key = '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'
+openai.api_key = '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'
 
 # search function
 def strings_ranked_by_relatedness(
@@ -47,11 +48,12 @@ def query_message(
     query: str,
     df: pd.DataFrame,
     model: str,
-    token_budget: int
+    token_budget: int,
+    # crop_name: str
 ) -> str:
     """Return a message for GPT, with relevant source texts pulled from a dataframe."""
     strings, relatednesses = strings_ranked_by_relatedness(query, df)
-    introduction = 'Use the below articles on the Rice crop to answer the subsequent question. If the answer cannot be found in the articles, write "I could not find an answer."'
+    introduction = 'Use the below articles on the crop to answer the subsequent question. If the answer cannot be found in the articles, write "I could not find an answer."'
     question = f"\n\nQuestion: {query}"
     message = introduction
     for string in strings:
@@ -78,10 +80,10 @@ def ask(
     message = query_message(query, df, model=model, token_budget=token_budget)
     if print_message:
         print(message)
-    if len(messages) == 0:
-        pre_prompt = {"role": "system", "content": "You are a helpful assistant for farmers."}
-        messages.append(pre_prompt)
 
+    # here the query embedding is added to the messages arary which is not sent to back in respons
+
+    # messages.append({""})
     messages.append({"role": "user", "content": message})
     
     response = openai.ChatCompletion.create(
@@ -93,20 +95,21 @@ def ask(
     return response_message
 
 
-def res(query:str, messages: list, soil='black', crop='rice', lat=26.2006, lon=92.9376):
+def res(query:str, messages: list):
     try:
-        # if len(messages) == 0:
-        #     weather = realtime(lat,lon)
-        #     messages = [
-        #         {"role": "system", "content": "You are a helpful assistant that helps farmers by giving relevant information on agriculture practices. Today's weather is {weather} the farmer's soil type is {soil} and the crop type is {crop} "},
-        #     ]
-        # response = openai.ChatCompletion.create(
-        #     model="gpt-3.5-turbo",
-        #     messages= messages
-        # )
-        # print(query)
-        return ask(query = query, messages = [])
+        return ask(query = query, messages=messages)
     
     except Exception as e:
         print(e)
         return ""
+
+def new_chat(crop_name: str):
+    # try:
+    messages = []
+    article = get_article(crop_name)
+    messages.append({"role": "system", "content": "You are a helpful assistant that helps farmers by giving relevant information on agriculture practices."})
+    messages.append({"role": "user", "content": 'Here is an article about' + crop_name + '\n\n ' + article + '\n\n . Answer the next questions based on this article.'})
+
+    return messages
+        
+    # except:
