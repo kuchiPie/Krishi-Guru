@@ -1,4 +1,4 @@
-# Hackverse 4.0 HACK PROJECT -- KRISHI GURU
+# Hackverse 4.0 HACK PROJECT -- KRISHI GURU (by Team Billboards)
 
 Creating an AI-powered mobile application for Indian farmers would provide them with easy access to accurate information about weather forecasts and agricultural-related queries. This is important because agriculture is a major industry in India, employing a large portion of the population and contributing significantly to the country's economy. However, farmers in India face numerous challenges, such as unpredictable weather patterns, pests, and diseases, which can impact their yields and income.
 
@@ -13,6 +13,15 @@ In summary, creating an AI-powered mobile application for Indian farmers can pro
 
 
 
+# TECH STACK
+-> Mobile Application : Flutter, Firebase, Firestore, Google Auth
+-> AI Algorithms: GPT-3.5-TURBO, text-da-vinci-ada-003, OpenAI APIs
+-> APIs: Fast API (Python)
+-> Data Collection References (PARSER) : farmer.gov.in, data.gov.in, wikipedia
+
+
+# PREVIEW
+![image](https://user-images.githubusercontent.com/93195979/232255498-a1cf4a90-bf6d-4775-b7f3-2d5941d0757d.png)
 
 
 
