@@ -25,11 +25,12 @@ class _FormForStartingChatState extends State<FormForStartingChat> {
     });
     try {
       if (_crop != "" && _soil != "") {
-        final chatId = await FirebaseFirestore.instance.collection('chats').add({
+        final chatId =
+            await FirebaseFirestore.instance.collection('chats').add({
           'soil': _soil,
           'crop': _crop,
           'uid': uid,
-          'createdAt':DateTime.now(),
+          'createdAt': DateTime.now(),
         });
       } else {
         ScaffoldMessenger.of(context).showSnackBar(
@@ -77,44 +78,83 @@ class _FormForStartingChatState extends State<FormForStartingChat> {
                       ),
                     ),
                   ),
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      DropdownButton(
-                        items: cropSrc.map((String item) {
-                          return DropdownMenuItem(
-                            child: Text(item),
-                            value: item,
-                          );
-                        }).toList(),
-                        onChanged: (String? newVal) {
-                          setState(
-                            () {
-                              _crop = newVal!;
-                            },
-                          );
-                        },
-                      ),
-                      DropdownButton(
-                        items: soilSrc.map((String item) {
-                          return DropdownMenuItem(
-                            child: Text(item),
-                            value: item,
-                          );
-                        }).toList(),
-                        onChanged: (String? newVal) {
-                          setState(
-                            () {
-                              _soil = newVal!;
-                            },
-                          );
-                        },
-                      ),
-                      ElevatedButton(
-                        onPressed: _trySave,
-                        child: Text('Create Chat'),
-                      ),
-                    ],
+                  Center(
+                    child: Column(
+                      children: [
+                        Container(
+                          margin: EdgeInsets.only(top: 150.h, bottom: 50.h),
+                          decoration: BoxDecoration(
+                            color: Color(0xffFAEBEB),
+                            borderRadius: BorderRadius.circular(30.r),
+                          ),
+                          width: 600.w,
+                          child: Center(
+                            child: DropdownButton(
+                              icon: Image.asset(
+                                'Assets/Images/crop.png',
+                                height: 70.h,
+                                width: 70.w,
+                              ),
+                              hint: Text(_crop==""?"Please Select Your Crop":_crop),
+                              style: TextStyle(
+                                  color: Colors.black,
+                                  backgroundColor: Color(0xffFAEBEB)),
+                              items: cropSrc.map((String item) {
+                                return DropdownMenuItem(
+                                  child: Text(item),
+                                  value: item,
+                                );
+                              }).toList(),
+                              onChanged: (String? newVal) {
+                                setState(
+                                  () {
+                                    _crop = newVal!;
+                                  },
+                                );
+                              },
+                            ),
+                          ),
+                        ),
+                        Container(
+                          margin: EdgeInsets.symmetric(vertical: 50.h),
+                          decoration: BoxDecoration(
+                            color: Color(0xffFAEBEB),
+                            borderRadius: BorderRadius.circular(30.r),
+                          ),
+                          width: 600.w,
+                          child: Center(
+                            child: DropdownButton(
+                              icon: Image.asset(
+                                'Assets/Images/soil.png',
+                                height: 70.h,
+                                width: 70.w,
+                              ),
+                              hint: Text(_soil==""?"Please Select Your Soil":_soil),
+                              style: TextStyle(
+                                  color: Colors.black,
+                                  backgroundColor: Color(0xffFAEBEB)),
+                              items: soilSrc.map((String item) {
+                                return DropdownMenuItem(
+                                  child: Text(item),
+                                  value: item,
+                                );
+                              }).toList(),
+                              onChanged: (String? newVal) {
+                                setState(
+                                  () {
+                                    _soil = newVal!;
+                                  },
+                                );
+                              },
+                            ),
+                          ),
+                        ),
+                        ElevatedButton(
+                          onPressed: _trySave,
+                          child: Text('Create Chat'),
+                        ),
+                      ],
+                    ),
                   ),
                 ],
               ),

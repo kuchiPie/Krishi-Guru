@@ -8,6 +8,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -43,8 +44,8 @@ class MyApp extends StatelessWidget {
             },
           ),
           routes: {
-            GPTScreen.routeName:(ctx)=>GPTScreen(),
-            FormForStartingChat.routeName:(ctx)=>FormForStartingChat(),
+            GPTScreen.routeName: (ctx) => GPTScreen(),
+            FormForStartingChat.routeName: (ctx) => FormForStartingChat(),
           },
         );
       },

@@ -117,8 +117,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                 ),
                               ),
                             ),
+                            Container(),
                             Container(
-                              margin: EdgeInsets.only(top: 1200.h),
                               child: Row(
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceEvenly,

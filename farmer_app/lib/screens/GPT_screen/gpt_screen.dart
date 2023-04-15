@@ -66,7 +66,7 @@ class _GPTScreenState extends State<GPTScreen> {
                         ),
                       ),
                       Container(
-                        height: 500.h,
+                        height: 1900.h,
                         child: StreamBuilder(
                           stream: FirebaseFirestore.instance
                               .collection('chats')
