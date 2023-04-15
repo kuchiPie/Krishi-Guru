@@ -7,6 +7,13 @@ import pandas as pd  # for storing text and embeddings data
 import tiktoken  # for counting tokens
 from scipy import spatial  #
 from map import get_article
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
+
+MY_ENV_VAR = os.getenv('MY_ENV_VAR')
+
 # models
 EMBEDDING_MODEL = "text-embedding-ada-002"
 GPT_MODEL = "gpt-3.5-turbo"
@@ -15,7 +22,7 @@ embeddings_path = "embddings.csv"
 df = pd.read_csv(embeddings_path)
 df['embedding'] = df['embedding'].apply(ast.literal_eval)
 
-openai.api_key = 'key'
+openai.api_key = MY_ENV_VAR
 
 # search function
 def strings_ranked_by_relatedness(
