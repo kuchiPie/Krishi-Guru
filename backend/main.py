@@ -3,6 +3,7 @@ from typing import Union
 from fastapi import FastAPI
 from pydantic import BaseModel
 from weather_api import realtime
+from weather_api import forecast
 
 app = FastAPI()
 
@@ -26,6 +27,9 @@ def update_item(item_id: int, item: Item):
     return {"item_name": item.name, "item_id": item_id}
 
 @app.get("/realtime/{lat}/{lon}")
-def read_item(lat: float, lon: float):
+def real_item(lat: float, lon: float):
     return realtime(lat, lon)
 
+@app.get("/forecast/{lat}/{lon}/{day}")
+def forecast_api(lat:float, lon:float, day:int):
+    return forecast(lat, lon, day)
