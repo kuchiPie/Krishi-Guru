@@ -25,6 +25,9 @@ class _NewMessageState extends State<NewMessage> {
 
     if (isVaild) {
       _formKey.currentState!.save();
+
+      // FirebaseFirestore.instance.collection(widget.)
+
       FirebaseFirestore.instance.collection(widget.chatId).add({
         'text': message,
         'createdAt': Timestamp.now(),
