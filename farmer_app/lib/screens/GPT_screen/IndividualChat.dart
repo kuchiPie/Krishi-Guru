@@ -40,7 +40,7 @@ class CommunityScreen extends StatelessWidget {
                   SingleChildScrollView(
                     child: Container(
                       margin: EdgeInsets.only(
-                        top: 40.h,
+                        top: 130.h,
                       ),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -48,11 +48,11 @@ class CommunityScreen extends StatelessWidget {
                           Container(
                             margin: EdgeInsets.symmetric(horizontal: 28.w),
                             child: Text(
-                              'Chat with GPT',
+                              'Chat with AI Guru',
                               style: TextStyle(
                                 fontWeight: FontWeight.bold,
                                 color: Colors.black,
-                                fontSize: 32.sp,
+                                fontSize: 85.sp,
                               ),
                             ),
                           ),
@@ -66,7 +66,7 @@ class CommunityScreen extends StatelessWidget {
                                 color: Color(0xB0FFDFB0),
                                 borderRadius: BorderRadius.circular(30.r),
                               ),
-                              height: 645.h,
+                              height: 2000.h,
                               child: Column(
                                 children: [
                                   Expanded(
@@ -74,7 +74,9 @@ class CommunityScreen extends StatelessWidget {
                                       chatId: chatId,
                                     ),
                                   ),
-                                  NewMessage(chatId: chatId,),
+                                  NewMessage(
+                                    chatId: chatId,
+                                  ),
                                 ],
                               ),
                             ),

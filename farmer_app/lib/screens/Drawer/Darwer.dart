@@ -56,6 +56,9 @@ class AppDrawer extends StatelessWidget {
                     routeName: GPTScreen.routeName,
                     icon: Icons.question_answer,
                     label: 'Ask AI Krishi'),
+                SizedBox(
+                  height: 1000.h,
+                ),
                 LogoutButton(Buttontext: 'Logout'),
               ],
             ),
