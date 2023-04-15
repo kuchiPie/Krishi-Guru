@@ -15,7 +15,7 @@ embeddings_path = "embddings.csv"
 df = pd.read_csv(embeddings_path)
 df['embedding'] = df['embedding'].apply(ast.literal_eval)
 
-openai.api_key = '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'
+openai.api_key = 'key'
 
 # search function
 def strings_ranked_by_relatedness(
