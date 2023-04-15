@@ -1,5 +1,4 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:farmer_app/screens/GPT_screen/Widgets/AllChats.dart';
 import 'package:farmer_app/screens/GPT_screen/Widgets/ChatItem.dart';
 import 'package:farmer_app/screens/GPT_screen/Widgets/FormForchat.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -79,7 +78,10 @@ class _GPTScreenState extends State<GPTScreen> {
                                 child: CircularProgressIndicator(),
                               );
                             }
-                            final chatDocs = chatSnap.data!.docs;
+                            final chatDocs =
+                                chatSnap.data!.docs.where((element) {
+                              return element['uid'] == user;
+                            }).toList();
                             return ListView.builder(
                               itemCount: chatDocs.length,
                               itemBuilder: (ctx, idx) => ChatItem(

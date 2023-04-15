@@ -1,4 +1,5 @@
 import 'package:farmer_app/screens/Auth/auth_screen.dart';
+import 'package:farmer_app/screens/GPT_screen/IndividualChat.dart';
 import 'package:farmer_app/screens/GPT_screen/Widgets/FormForchat.dart';
 import 'package:farmer_app/screens/GPT_screen/gpt_screen.dart';
 import 'package:farmer_app/screens/Home/home_screen.dart';

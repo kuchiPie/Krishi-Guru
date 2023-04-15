@@ -1,3 +1,4 @@
+import 'package:farmer_app/screens/GPT_screen/IndividualChat.dart';
 import 'package:flutter/material.dart';
 
 class ChatItem extends StatelessWidget {
@@ -9,9 +10,10 @@ class ChatItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text("Pressed"),
+      onTap: ()=> Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (context) => CommunityScreen(chatId: chatId,),
         ),
       ),
       child: Row(

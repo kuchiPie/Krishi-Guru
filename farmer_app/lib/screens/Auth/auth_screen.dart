@@ -1,5 +1,7 @@
+import 'package:farmer_app/screens/Home/home_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -13,7 +15,11 @@ class AuthScreen extends StatefulWidget {
 }
 
 class _AuthScreenState extends State<AuthScreen> {
+  bool _isloading = false;
   signInWithGoogle() async {
+    setState(() {
+      _isloading = true;
+    });
     GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
     if (googleUser == null) {
       ScaffoldMessenger.of(context).showSnackBar(
@@ -21,6 +27,9 @@ class _AuthScreenState extends State<AuthScreen> {
           content: Text('Login Falied, Please try again'),
         ),
       );
+      setState(() {
+      _isloading = false;
+    });
       return;
     }
     GoogleSignInAuthentication? googleAuth = await googleUser.authentication;
@@ -30,6 +39,48 @@ class _AuthScreenState extends State<AuthScreen> {
         await FirebaseAuth.instance.signInWithCredential(credential);
     print(user);
     print(user);
+    setState(() {
+      _isloading = false;
+    });
+
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(
+        builder: (context) => HomeScreen(),
+      ),
+    );
+  }
+
+  void yourFunction(BuildContext context) async {
+    setState(() {
+      _isloading = true;
+    });
+    final user = FirebaseAuth.instance.currentUser;
+
+    try {
+      if (user != null) {
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+            builder: (context) => HomeScreen(),
+          ),
+        );
+      }
+
+      setState(() {
+        _isloading = false;
+      });
+    } on PlatformException catch (error) {
+      setState(() {
+        _isloading = false;
+      });
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) => yourFunction(context));
   }
 
   @override
@@ -91,17 +142,21 @@ class _AuthScreenState extends State<AuthScreen> {
                             ),
                             color: Color(0xa6FAEBEB),
                           ),
-                          child: Container(
-                            height: 100.h,
-                            child: ElevatedButton.icon(
-                              onPressed: signInWithGoogle,
-                              icon: FaIcon(FontAwesomeIcons.google),
-                              label: Text('Sign Up with Google'),
-                              style: ElevatedButton.styleFrom(
-                                  primary: Color(0xffFAEBEB),
-                                  onPrimary: Colors.black),
-                            ),
-                          ),
+                          child: _isloading
+                              ? Center(
+                                  child: CircularProgressIndicator(),
+                                )
+                              : Container(
+                                  height: 100.h,
+                                  child: ElevatedButton.icon(
+                                    onPressed: signInWithGoogle,
+                                    icon: FaIcon(FontAwesomeIcons.google),
+                                    label: Text('Sign Up with Google'),
+                                    style: ElevatedButton.styleFrom(
+                                        primary: Color(0xffFAEBEB),
+                                        onPrimary: Colors.black),
+                                  ),
+                                ),
                         ),
                       ],
                     ),

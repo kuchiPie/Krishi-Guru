@@ -25,7 +25,7 @@ class _FormForStartingChatState extends State<FormForStartingChat> {
     });
     try {
       if (_crop != "" && _soil != "") {
-        await FirebaseFirestore.instance.collection('chats').add({
+        final chatId = await FirebaseFirestore.instance.collection('chats').add({
           'soil': _soil,
           'crop': _crop,
           'uid': uid,
