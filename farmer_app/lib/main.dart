@@ -1,4 +1,6 @@
 import 'package:farmer_app/screens/Auth/auth_screen.dart';
+import 'package:farmer_app/screens/GPT_screen/Widgets/FormForchat.dart';
+import 'package:farmer_app/screens/GPT_screen/gpt_screen.dart';
 import 'package:farmer_app/screens/Home/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -13,7 +15,6 @@ Future<void> main() async {
 }
 
 class MyApp extends StatelessWidget {
-
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
@@ -40,6 +41,10 @@ class MyApp extends StatelessWidget {
               return Text('Some Error Occured');
             },
           ),
+          routes: {
+            GPTScreen.routeName:(ctx)=>GPTScreen(),
+            FormForStartingChat.routeName:(ctx)=>FormForStartingChat(),
+          },
         );
       },
       designSize: Size(1080, 2408),

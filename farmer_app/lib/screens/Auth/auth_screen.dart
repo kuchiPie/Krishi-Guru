@@ -8,7 +8,6 @@ import 'package:google_sign_in/google_sign_in.dart';
 // @dart=2.9
 
 class AuthScreen extends StatefulWidget {
-
   @override
   State<AuthScreen> createState() => _AuthScreenState();
 }
@@ -29,7 +28,7 @@ class _AuthScreenState extends State<AuthScreen> {
         accessToken: googleAuth.accessToken, idToken: googleAuth.idToken);
     UserCredential user =
         await FirebaseAuth.instance.signInWithCredential(credential);
-
+    print(user);
     print(user);
   }
 
