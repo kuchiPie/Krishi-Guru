@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import '../../../models/gpt.dart';
 
 class FormForStartingChat extends StatefulWidget {
   const FormForStartingChat({super.key});
@@ -15,9 +16,10 @@ class _FormForStartingChatState extends State<FormForStartingChat> {
   String _crop = "";
   String _soil = "";
   bool _isLoading = false;
-  List<String> cropSrc = ['Maize', 'Wheat', 'Barley'];
+  List<String> cropSrc = ['rice', 'wheat', 'cotton', 'mango'];
   List<String> soilSrc = ['Red', 'Black', 'Brown'];
   final uid = FirebaseAuth.instance.currentUser!.uid;
+  String? name = FirebaseAuth.instance.currentUser!.displayName;
 
   _trySave() async {
     setState(() {
@@ -32,6 +34,23 @@ class _FormForStartingChatState extends State<FormForStartingChat> {
           'uid': uid,
           'createdAt': DateTime.now(),
         });
+
+        final res = await newQuery(_crop);
+        print(res[0]['content']);
+        await FirebaseFirestore.instance.collection(chatId.id).add({
+          'createdAt': DateTime.now(),
+          'name': 'system',
+          'text': res[0]['content'],
+          'userId': 12345
+        });
+        await FirebaseFirestore.instance.collection(chatId.id).add({
+          'createdAt': DateTime.now(),
+          'name': name,
+          'text': res[1]['content'],
+          'userId': uid
+        });
+
+        print(res);
       } else {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
@@ -95,7 +114,9 @@ class _FormForStartingChatState extends State<FormForStartingChat> {
                                 height: 70.h,
                                 width: 70.w,
                               ),
-                              hint: Text(_crop==""?"Please Select Your Crop":_crop),
+                              hint: Text(_crop == ""
+                                  ? "Please Select Your Crop"
+                                  : _crop),
                               style: TextStyle(
                                   color: Colors.black,
                                   backgroundColor: Color(0xffFAEBEB)),
@@ -129,7 +150,9 @@ class _FormForStartingChatState extends State<FormForStartingChat> {
                                 height: 70.h,
                                 width: 70.w,
                               ),
-                              hint: Text(_soil==""?"Please Select Your Soil":_soil),
+                              hint: Text(_soil == ""
+                                  ? "Please Select Your Soil"
+                                  : _soil),
                               style: TextStyle(
                                   color: Colors.black,
                                   backgroundColor: Color(0xffFAEBEB)),
