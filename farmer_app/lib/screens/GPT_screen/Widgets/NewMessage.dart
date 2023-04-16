@@ -1,8 +1,8 @@
-
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import '../../../models/gpt.dart';
 
 class NewMessage extends StatefulWidget {
   final chatId;
@@ -15,7 +15,7 @@ class _NewMessageState extends State<NewMessage> {
   final _formKey = GlobalKey<FormState>();
   String message = '';
   final _controller = new TextEditingController();
-
+  final uid = FirebaseAuth.instance.currentUser!.uid;
   void _sendMessage() async {
     FocusScope.of(context).unfocus();
     final user = FirebaseAuth.instance.currentUser;
@@ -23,18 +23,70 @@ class _NewMessageState extends State<NewMessage> {
     final userData =
         await FirebaseFirestore.instance.doc('users/' + user!.uid).get();
 
+
     if (isVaild) {
       _formKey.currentState!.save();
 
-      // FirebaseFirestore.instance.collection(widget.)
+      List<Map<String, dynamic>> lst = [];
 
-      FirebaseFirestore.instance.collection(widget.chatId).add({
-        'text': message,
-        'createdAt': Timestamp.now(),
-        'userId': user.uid,
-        'name': userData['name'],
-      });
-      _controller.clear();
+      Future<void> getData() async {
+        QuerySnapshot querySnapshot = await FirebaseFirestore.instance
+            .collection(widget.chatId)
+            .orderBy('createdAt', descending: false)
+            .get();
+
+        // var texts = querySnapshot.docs.map((e) => e.get('text').toString()).toList();
+
+        var texts = querySnapshot.docs
+            .map((e) => e.get('userId') == uid
+                ? {'role': 'user', 'content': e.get('text').toString()}
+                : {'role': 'assistant', 'content': e.get('text').toString()})
+            .toList();
+        lst = texts;
+
+        // List<Map<String, String>> lst = [];
+        // querySnapshot.docs.map((e) {
+        //   Map<String, String> mp;
+        //   String tex = e.get('text').toString();
+        //   print(tex);
+        //   if (e.get('userId') == uid) {
+        //     mp = {'role': 'user', 'content': tex};
+        //   } else {
+        //     mp = {'role': 'assistant', 'content': tex};
+        //   }
+        //   lst.add(mp);
+        //   print(mp);
+        // });
+        // print(lst);
+        // print(texts);
+      }
+
+      await getData();
+
+      // var messages = [];
+      // await prevDocs.t
+      print(lst);
+      // if (lst.length == 0) {
+      //   print(CropVal);
+      //   // String ans=await newQuery()
+      // } else {
+        FirebaseFirestore.instance.collection(widget.chatId).add({
+          'text': message,
+          'createdAt': Timestamp.now(),
+          'userId': user.uid,
+          'name': userData['name'],
+        });
+        _controller.clear();
+
+        String ans = await resolveQuery(message, lst);
+        print(ans);
+        FirebaseFirestore.instance.collection(widget.chatId).add({
+          'text': ans,
+          'createdAt': Timestamp.now(),
+          'userId': 1234,
+          'name': 'Assistant',
+        });
+      // }
     }
   }
 
