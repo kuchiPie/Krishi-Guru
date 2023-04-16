@@ -39,6 +39,7 @@ def forecast_api(lat:float, lon:float, day:int):
 
 @app.post("/query/")
 def query_api(data_list: List[Dict[str, str]], message: str):
+    print(message, data_list)
     result = res(message, data_list)
     return result
 
