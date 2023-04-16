@@ -85,28 +85,6 @@ Chlorpyriphos 20 EC @ 2,500 ml/ha or Quninalphos 25 EC
 @ 2,000 ml/ha.
 Vegetative
 stage
-Stem-borer  Clipping of leaf tips of the seedlings at the time of
-transplanting will help in destruction of egg masses.
- Removal of excess nursery and incorporation into soil.
- Clean cultivation and destruction of stubbles.
- Apply Cartap 4 G @ 25 kg/ha or Phorate 10 G @ 10 kg/ha or
-Fipronil 0.3 G @ 25 kg/ha or Chlorpyriphos 10 G @ 10
-kg/ha.
- Install pheromone traps with 5 mg lure @ 8 traps/ha for pest
-monitoring or 20 traps/ha for direct control through mass
-trapping. Replace lures at 25 to 30 days interval during the
-crop period.
- Inundative release of egg parasitoid, Trichogramma
-japonicum 5 to 6 times @ 100,000 adults/ha starting from 15
-days after transplanting.
-Gall midge  Apply Fipronil 0.3 G @ 25 kg/ha or Phorate 10 G @ 10
-kg/ha
-Green leafhopper  Spray Carbaryl 50 WP @ 900 g ha or BPMC 50 EC @ 600
-ml/ha or Acephate 50 WP @ 700 g/ha or Ethofenprox 10 Ec
-@ 500 ml/ha or Imidacloprid 200 SL @ 125 ml/ha or 
-Thiamethoxam 25 WG @ 100 g/ha or Clothianidin 50 WDG
-30 g/ha. Alternatively, apply Phorate 10 G @ 12.5 kg/h or
-Fipronil 0.3 G @ 25 kg/ha.
 """
 
 
