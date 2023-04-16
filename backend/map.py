@@ -69,22 +69,7 @@ The most common early-season foliar diseases affecting wheat crops are powdery m
 
 text_rice = """
     
-Pest, Diseases, Weeds of Rice & Their Management
-1. Pests and diseases of Rice
-(a) Important Pest
-Stage Pests Control measures
-Nursery Stem-borer, gall midge,
-thrips, root-knot
-nematode, root
-nematode and white tip
-nematode
- For insect-pests and nematodes, apply Phorate 10 G @ 12.5
-kg/ha or Fipronil 0.3 G @ 33 kg/ha of nursery, 5 to 7 days
-before pulling the seedlings for transplanting or spray with
-Chlorpyriphos 20 EC @ 2,500 ml/ha or Quninalphos 25 EC
-@ 2,000 ml/ha.
-Vegetative
-stage
+Gall Midge is a insect that attacks rice
 """
 
 
