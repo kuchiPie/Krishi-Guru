@@ -10,9 +10,9 @@ from map import get_article
 import os
 from dotenv import load_dotenv
 
-load_dotenv()
+# load_dotenv()
 
-MY_ENV_VAR = os.getenv('MY_ENV_VAR')
+MY_ENV_VAR = os.getenv('OPENAI_KEY')
 
 # models
 EMBEDDING_MODEL = "text-embedding-ada-002"
